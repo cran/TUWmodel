@@ -1,0 +1,8 @@
+11e51f2497cc36960bba11dd0f2a18e1 *DESCRIPTION
+462e2b5c87da4f35dbd7b9fd14677698 *NAMESPACE
+586fe15559ce95d7c0a0cadebd67cc0b *R/First.lib.R
+3d80f1e7066939562631f06b9c4d2bde *R/TUWmodel.R
+0eafa440ad670348331c3f29a2357c68 *data/example_TUWmodel.RData
+c2cd452ad95b7029e1c723b6b4bcd622 *man/TUWmodel.Rd
+7ddde5cb503b40be5a3079b93510dacb *man/example_TUWmodel.Rd
+44c05b4b1cfcb30dcf9503470fa71c56 *src/hbvmodel.f
