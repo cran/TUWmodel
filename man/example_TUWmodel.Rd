@@ -36,9 +36,11 @@ data(example_TUWmodel)
 ls()
 
 t <- as.Date(rownames(P_Vils))
-plot(t, apply(P_Vils, 1, weighted.mean, w=areas_Vils), type="S", xlab="", ylab="Precipitation [mm/day]")
+plot(t, apply(P_Vils, 1, weighted.mean, w=areas_Vils), 
+     type="S", xlab="", ylab="Precipitation [mm/day]")
 
-plot(t, apply(PET_Vils, 1, weighted.mean, w=areas_Vils), type="l", xlab="", ylab="Potential evapotranspiration [mm/day]")
+plot(t, apply(PET_Vils, 1, weighted.mean, w=areas_Vils), 
+     type="l", xlab="", ylab="Potential evapotranspiration [mm/day]")
 
 plot(t, T_Vils[,1], type="l", xlab="", ylab="Temperature [degC]")
  lines(t, T_Vils[,6], col=3)

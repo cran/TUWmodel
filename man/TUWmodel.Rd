@@ -8,7 +8,9 @@
              See Parajka, J., R. Merz, G. Bloeschl (2007) Uncertainty and multiple objective calibration in regional water balance modelling: case study in 320 Austrian catchments, Hydrological Processes, 21, 435-446.
 }
 \usage{
- TUWmodel (prec, airt, ep, area, param=c(1.2,1.2,2,-2,0,0.9,100,3.3,0.5,9,105,50,2,10,26.5), incon=c(50,0,2.5,2.5), itsteps=NULL)
+ TUWmodel (prec, airt, ep, area, 
+           param=c(1.2,1.2,2,-2,0,0.9,100,3.3,0.5,9,105,50,2,10,26.5), 
+           incon=c(50,0,2.5,2.5), itsteps=NULL)
 }
 %- maybe also `usage' for other objects documented here.
 \arguments{
@@ -67,7 +69,6 @@ No details for now.
 %\seealso{}
 
 \examples{
-## ------------------------------------------------------------------------------------------------------ ##
 ## Load the data
 data(example_TUWmodel)
 
