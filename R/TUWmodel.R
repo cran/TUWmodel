@@ -1,24 +1,40 @@
-TUWmodel <- function (prec, airt, ep, area, param=c(1.2,1.2,2,-2,0,0.9,100,3.3,0.5,9,105,50,2,10,26.5), incon=c(50,0,2.5,2.5), itsteps=NULL) {
+TUWmodel <- function (prec, airt, ep, area=1, param=c(1.2,1.2,2,-2,0,0.9,100,3.3,0.5,9,105,50,2,10,26.5), incon=c(50,0,2.5,2.5), itsteps=NULL) {
  nzones <- ifelse(is.vector(prec), 1, dim(prec)[2])
  itsteps <- ifelse(is.null(itsteps), length(prec)/nzones, itsteps)
  if (nzones == 1) {
-  input <- as.matrix(t(cbind(prec, airt, ep, ep*0)))
+  parametri <- as.matrix(t(param))
+  inconditions <- as.matrix(t(incon))
+ } else if (nzones < 1) {
+  cat("\nFormatting harddisk. Please smile!\n")
  } else {
-  input <- matrix(NA, ncol=dim(prec)[1], nrow=4*nzones)
-  for (i in 1:nzones) {
-   input[4*(i-1)+c(1:4),] <- t(cbind(prec[,i], airt[,i], ep[,i], ep[,i]*0))
+  if (is.matrix(param)) {
+   parametri <- param
+  } else if (is.vector(param)) {
+   parametri <- matrix(rep(param, nzones), ncol=nzones)
+  }
+  if (is.matrix(incon)) {
+   inconditions <- incon
+  } else if (is.vector(incon)) {
+   inconditions <- matrix(rep(incon, nzones), ncol=nzones)
   }
  }
- storage.mode(input) <- "double"
- output <- array(777, dim=c(nzones, 20, itsteps))
+ storage.mode(prec) <- "double"
+ storage.mode(airt) <- "double"
+ storage.mode(ep) <- "double"
+ storage.mode(area) <- "double"
+ storage.mode(parametri) <- "double"
+ storage.mode(inconditions) <- "double"
+ output <- array(-777, dim=c(nzones, 20, itsteps))
  storage.mode(output) <- "double"
- dummy <- .Fortran("hbvmodel", itsteps=as.integer(itsteps), nzones=as.integer(nzones), area=as.single(area), param=as.single(param), incon=as.single(incon),
-                    input, output=output, PACKAGE="TUWmodel")
+
+ dummy <- .Fortran("hbvmodel", itsteps=as.integer(itsteps), nzones=as.integer(nzones), area=area, param=parametri, incon=inconditions,
+                    prec=prec, airt=airt, ep=ep, output=output, PACKAGE="TUWmodel") 
  names(dummy$param) <- c("SCF","DDF","Tr","Ts","Tm","LPrat","FC","BETA","k0","k1","k2","lsuz","cperc","bmax","croute")
  names(dummy$incon) <- c("SSM0","SWE0","SUZ0","SLZ0")
  dummy$qzones <- t(dummy$output[,1,])
  if (nzones > 1) {dummy$q <- apply(dummy$qzones,1,sum)} else {dummy$q <- dummy$qzones}
  dummy$swe <- t(dummy$output[,2,])
+ dummy$melt <- t(dummy$output[,6,])
  dummy$q0 <- t(dummy$output[,7,])
  dummy$q1 <- t(dummy$output[,8,])
  dummy$q2 <- t(dummy$output[,9,])
