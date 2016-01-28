@@ -42,9 +42,12 @@
 !     ---- set up parameters ----
 !	open(88,file="hbv.log")
 !	write(88,*) nzones
+
+	output=0.  
+
       do izone=1,nzones
-      csf=param(1,izone)	
-      ddf=param(2,izone)	
+        csf=param(1,izone)	
+        ddf=param(2,izone)	
 	tr=param(3,izone)
 	ts=param(4,izone)
 	meltt=param(5,izone) 
@@ -69,7 +72,7 @@
 	ddfmax=6.0
 	ddfage=ddf
 
-      output=0.  
+      !output=0.  !HERE WAS PROBABLY THE PROBLEM!!! it should be before the loop, otherwise it erase always the output matrix
 	nasim=0
 	nasim2=0
 	nasim3=0
@@ -113,6 +116,8 @@
           output(izone,8,it)=-999.99
           output(izone,9,it)=-999.99
           output(izone,10,it)=-999.99
+	  output(izone,11,it)=-999.99
+	  output(izone,12,it)=-999.99
         goto  330
        endif
 
@@ -194,6 +199,8 @@
          output(izone,8,it)=q1
          output(izone,9,it)=q2
          output(izone,10,it)=eta
+	 output(izone,11,it)=suz    ! added by al.
+	 output(izone,12,it)=slz    ! added by al.
 
 !      write(88,'(100f12.4)') rain,snow,melt,swe,moist,q(it)
 !	write(88,'(100f12.4)') izone*1.,it*1.,q(it),output(izone,1,it), 
@@ -214,6 +221,8 @@
           output(izone,8,it)=0.
           output(izone,9,it)=0.
           output(izone,10,it)=0.
+	  output(izone,11,it)=0.
+	  output(izone,12,it)=0.
 
 	 enddo
       endif

@@ -38,10 +38,12 @@ TUWmodel <- function (prec, airt, ep, area=1, param=c(1.2,1.2,2,-2,0,0.9,100,3.3
  dummy$q0 <- t(dummy$output[,7,])
  dummy$q1 <- t(dummy$output[,8,])
  dummy$q2 <- t(dummy$output[,9,])
- dummy$rmoist <- t(dummy$output[,3,])
+ dummy$moist <- t(dummy$output[,3,])
  dummy$rain <- t(dummy$output[,4,])
  dummy$snow <- t(dummy$output[,5,])
  dummy$eta <- t(dummy$output[,10,])
+ dummy$suz <- t(dummy$output[,11,])
+ dummy$slz <- t(dummy$output[,12,])
 
  return(dummy)
 }

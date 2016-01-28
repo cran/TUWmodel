@@ -52,15 +52,16 @@ No details for now.
  \code{TUWmodel} gives a vector of simulated runoff as \code{q} (mm/timestep), and the following vector/matrices:
 \enumerate{
 \item \code{qzones} simulated runoff for each zone (mm/timestep);
-\item \code{swe} snow water equivalent (mm);
 \item \code{q0} surface runoff (mm/timestep);
 \item \code{q1} subsurface runoff (mm/timestep);
 \item \code{q2} baseflow (mm/timestep);
-\item \code{rmoist} relative soil moisture (between 0 and 1);
-\item \code{rain} liquid precipitation (mm/timestep)
-\item \code{snow} solid precipitation (mm/timestep)
+\item \code{rain} liquid precipitation (mm/timestep);
+\item \code{snow} solid precipitation (mm/timestep);
 \item \code{melt} snowmelt (mm/timestep);
-\item \code{eta} actual evapotranspiration (mm/timestep)
+\item \code{moist} soil moisture (mm);
+\item \code{swe} snow water equivalent (mm);
+\item \code{suz} upper storage zone (mm);
+\item \code{slz} lower storage zone (mm);
 }
 }
 %\references{}
