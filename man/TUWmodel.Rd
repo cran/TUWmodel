@@ -1,5 +1,6 @@
 \name{TUWmodel}
 \alias{TUWmodel}
+\alias{hbvmodel}
 %- Also NEED an `\alias' for EACH other topic documented here.
 \title{Lumped hydrological model developed at the Vienna University of Technology for education purposes}
 \description{
@@ -14,54 +15,62 @@
 }
 %- maybe also `usage' for other objects documented here.
 \arguments{
- \item{prec}{vector/matrix of precipitation input (mm/timestep) (\code{ncol} = number of zones)}
- \item{airt}{vector/matrix of air temperatures (degC)}
- \item{ep}{vector/matrix of potential evapotranspiration (mm/timestep)}
+ \item{prec}{vector/matrix of precipitation input [mm/timestep] (\code{ncol} = number of zones)}
+ \item{airt}{vector/matrix of air temperatures [degC]}
+ \item{ep}{vector/matrix of potential evapotranspiration [mm/timestep]}
  %\item{snowd}{vector of snow depths (same length as \code{prec}) (cm)}
- \item{area}{if more zones, vector of the percentage of area for each zone}
+ \item{area}{if more zones, vector of the percentage of area for each zone (or proportional to it, i.e., if the sum is different from 1, it will be rescaled to be 1)}
  \item{param}{vector/matrix of parameters (\code{ncol} = number of zones):
 \enumerate{
-\item \code{SCF} snow correction factor (0.9-1.5);
-\item \code{DDF} degree day factor (0.0-5.0 mm/degC/timestep);
-\item \code{Tr} threshold temperature above which precipitation is rain (1.0-3.0 degC);
-\item \code{Ts} threshold temperature below which precipitation is snow (-3.0-1.0 degC);
-\item \code{Tm} threshold temperature above which melt starts (-2.0-2.0 degC);
-\item \code{LPrat} parameter related to the limit for potential evaporation (0.0-1.0);
-\item \code{FC} field capacity, i.e., max soil moisture storage (0-600 mm);
-\item \code{BETA} the non linear parameter for runoff production (0.0-20.0);
-\item \code{k0} storage coefficient for very fast response (0.0-2.0 timestep);
-\item \code{k1} storage coefficient for fast response (2.0-30.0 timestep);
-\item \code{k2} storage coefficient for slow response (30.0-250.0 timestep);
-\item \code{lsuz} threshold storage state, i.e., the very fast response start if exceeded (1.0-100.0 mm);
-\item \code{cperc} constant percolation rate (0.0-8.0 mm/timestep);
-\item \code{bmax} maximum base at low flows (0.0-30.0 timestep);
-\item \code{croute} free scaling parameter (0.0-50.0 timestep2/mm);
+\item \code{SCF} snow correction factor [-] (e.g., 0.9-1.5);
+\item \code{DDF} degree day factor [mm/degC/timestep] (e.g., 0.0-5.0 mm/degC/day);
+\item \code{Tr} threshold temperature above which precipitation is rain [degC] (e.g., 1.0-3.0 degC);
+\item \code{Ts} threshold temperature below which precipitation is snow [degC] (e.g., -3.0-1.0 degC);
+\item \code{Tm} threshold temperature above which melt starts [degC] (e.g., -2.0-2.0 degC);
+\item \code{LPrat} parameter related to the limit for potential evaporation [-] (e.g., 0.0-1.0);
+\item \code{FC} field capacity, i.e., max soil moisture storage [mm] (e.g., 0-600 mm);
+\item \code{BETA} the non linear parameter for runoff production [-] (e.g., 0.0-20.0);
+\item \code{k0} storage coefficient for very fast response [timestep] (e.g., 0.0-2.0 days);
+\item \code{k1} storage coefficient for fast response [timestep] (e.g., 2.0-30.0 days);
+\item \code{k2} storage coefficient for slow response [timestep] (e.g., 30.0-250.0 days);
+\item \code{lsuz} threshold storage state, i.e., the very fast response start if exceeded [mm] (e.g., 1.0-100.0 mm);
+\item \code{cperc} constant percolation rate [mm/timestep] (e.g., 0.0-8.0 mm/day);
+\item \code{bmax} maximum base at low flows [timestep] (e.g., 0.0-30.0 days);
+\item \code{croute} free scaling parameter [timestep^2/mm] (e.g., 0.0-50.0 days^2/mm);
 }
-see Parajka, J., R. Merz, G. Bloeschl (2007) Uncertainty and multiple objective calibration in regional water balance modelling: case study in 320 Austrian catchments, Hydrological Processes, 21, 435-446, doi:10.1002/hyp.6253.}
+}
  \item{incon}{vector/matrix of initial conditions for the model (\code{ncol} = number of zones):
-\code{SSM0} soil moisture (mm);
-\code{SWE0} snow water equivalent (mm);
-\code{SUZ0} initial value for fast (upper zone) response storage (mm);
-\code{SLZ0} initial value for slow (lower zone) response storage (mm)}
+\code{SSM0} soil moisture [mm];
+\code{SWE0} snow water equivalent [mm];
+\code{SUZ0} initial value for fast (upper zone) response storage [mm];
+\code{SLZ0} initial value for slow (lower zone) response storage [mm]}
  \item{itsteps}{length of the output (if NULL all the time series are used)}
 }
 \details{
-No details for now.
+%No details for now.
+More details about the model structure are given in the Appendix of
+
+ Parajka, J., R. Merz, G. Bloeschl (2007) Uncertainty and multiple objective calibration in regional water balance modelling: case study in 320 Austrian catchments, Hydrological Processes, 21, 435-446, doi:10.1002/hyp.6253.
+
+An example of using \code{TUWmodel}, including R scripts for automatic calibration, can be found in the Supplement of 
+
+ Ceola, S., et al. (2015) Virtual laboratories: new opportunities for collaborative water science, Hydrology and Earth System Sciences, 19(4), 2101-2117, doi:10.5194/hess-19-2101-2015.
 }
 \value{
- \code{TUWmodel} gives a vector of simulated runoff as \code{q} (mm/timestep), and the following vector/matrices:
+ \code{TUWmodel} gives a vector of simulated runoff as \code{q} [mm/timestep], and the following vector/matrices:
 \enumerate{
-\item \code{qzones} simulated runoff for each zone (mm/timestep);
-\item \code{q0} surface runoff (mm/timestep);
-\item \code{q1} subsurface runoff (mm/timestep);
-\item \code{q2} baseflow (mm/timestep);
-\item \code{rain} liquid precipitation (mm/timestep);
-\item \code{snow} solid precipitation (mm/timestep);
-\item \code{melt} snowmelt (mm/timestep);
-\item \code{moist} soil moisture (mm);
-\item \code{swe} snow water equivalent (mm);
-\item \code{suz} upper storage zone (mm);
-\item \code{slz} lower storage zone (mm);
+\item \code{qzones} simulated runoff for each zone [mm/timestep];
+\item \code{q0} surface runoff [mm/timestep];
+\item \code{q1} subsurface runoff [mm/timestep];
+\item \code{q2} baseflow [mm/timestep];
+\item \code{rain} liquid precipitation [mm/timestep];
+\item \code{snow} solid precipitation [mm/timestep];
+\item \code{melt} snowmelt [mm/timestep];
+\item \code{moist} soil moisture [mm];
+\item \code{swe} snow water equivalent [mm];
+\item \code{eta} actual evapo-transpiration [mm/timestep];
+\item \code{suz} upper storage zone [mm];
+\item \code{slz} lower storage zone [mm];
 }
 }
 %\references{}

@@ -17,11 +17,11 @@ Data for examples in the package
 }
 \format{The data are time series for the river Vils at Vils (Laende):
 \enumerate{
-\item \code{Q_Vils} vector of observed daily discharges (mm/day);
-\item \code{P_Vils} matrix of observed daily precipitation (mm/day) for 6 zones;
-\item \code{T_Vils} matrix of observed daily temperatures (degC) for 6 zones;
-\item \code{PET_Vils} matrix of potential evapotranspiration (mm/day) for 6 zones;
-\item \code{SWE_Vils} matrix of observed snow water equivalent (mm) for 6 zones;
+\item \code{Q_Vils} vector of observed daily discharges [mm/day];
+\item \code{P_Vils} matrix of observed daily precipitation [mm/day] for 6 zones;
+\item \code{T_Vils} matrix of observed daily temperatures [degC] for 6 zones;
+\item \code{PET_Vils} matrix of potential evapotranspiration [mm/day] for 6 zones;
+\item \code{SWE_Vils} matrix of observed snow water equivalent [mm] for 6 zones;
 \item \code{areas_Vils} areas of the 6 zones.
 }
 }
