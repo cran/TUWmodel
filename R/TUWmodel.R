@@ -51,10 +51,3 @@ TUWmodel <- function (prec, airt, ep, area=1, param=c(1.2,1.2,2,-2,0,0.9,100,3.3
 
  return(dummy)
 }
-
-
-
-
-
-
-
